@@ -1,6 +1,6 @@
 import { Component } from "solid-js/types/server/rendering.js";
-import { Feed } from "./components/Feed";
-import { Shortcuts } from "./components/Shortcuts";
+import { Feed } from "../components/Feed";
+import { Shortcuts } from "../components/Shortcuts";
 
 export const Home: Component = () => {
   return (

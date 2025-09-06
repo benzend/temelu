@@ -3,9 +3,9 @@ import './index.css';
 import { render } from 'solid-js/web';
 
 import { Route, Router } from '@solidjs/router';
-import { Landing } from './Landing';
-import { Home } from './Home';
-import { Post } from './Post';
+import { Landing } from './pages/Landing';
+import { Home } from './pages/Home';
+import { Post } from './pages/Post';
 
 const root = document.getElementById('root');
 
