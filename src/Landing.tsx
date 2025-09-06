@@ -123,22 +123,3 @@ const TypeChallenge: Component = ({ challenge, action }: ITypeChallengeProps) =>
     </code>
   )
 }
-
-interface IPopupProps {
-  title: string;
-  content: string;
-  action: () => void;
-}
-
-const Popup: Component = ({ title, content }: IPopupProps) => {
-  return (
-    <div class="fixed top-0 left-0 m-4 w-full h-full flex items-center justify-center">
-      <div class="min-w-120 bg-[#1E1E1E] text-white rounded-lg p-4 shadow-lg">
-        <h2 class="text-2xl font-bold mb-4">{title}</h2>
-        <p class="text-lg">{content}</p>
-      </div>
-      <div class="absolute -z-1 top-0 right-0 m-4 w-full h-full bg-zinc-900 opacity-50 flex items-center justify-center">
-      </div>
-    </div>
-  );
-}
