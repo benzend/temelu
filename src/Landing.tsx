@@ -55,7 +55,7 @@ const TypeChallenge: Component = ({ challenge, action }: ITypeChallengeProps) =>
     <code class="px-2 py-1 rounded mx-3 bg-zinc-950 text-zinc-500">
       {targetSequence.map((char, i) => {
         return (
-          <span classList={{'text-amber-600': isTyped(char, i)}}>{char}</span>
+          <span classList={{'text-amber-600': isTyped(char, i), 'animate-pulse': !isTyped(char, i)}}>{char}</span>
         )
       })}
     </code>
