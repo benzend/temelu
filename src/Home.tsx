@@ -5,13 +5,15 @@ import { Shortcuts } from "./components/Shortcuts";
 export const Home: Component = () => {
   return (
     <div class="bg-zinc-900 text-white min-h-screen min-w-screen">
-      <div class="max-w-7xl mx-auto lg:grid lg:grid-cols-3">
-        <aside class="hidden lg:block">
+      <div class="max-w-7xl mx-auto flex">
+        <aside class="hidden lg:block w-60">
           <Shortcuts />
         </aside>
-        <main>
+        <main class="w-full lg:w-180">
           <Feed />
         </main>
+        <div>
+        </div>
       </div>
     </div>
    )

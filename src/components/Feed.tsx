@@ -39,7 +39,7 @@ const POSTS = [
 
 export const Feed: Component = () => {
   return (
-    <div class="mx-auto">
+    <div class="mx-auto lg:border-x-2 lg:border-zinc-800">
       {POSTS.map(post => (
         <FeedPost post={post} />
       ))}
@@ -50,7 +50,7 @@ export const Feed: Component = () => {
 const FeedPost: Component<{ post: typeof POSTS[0] }> = ({ post }) => {
   return (
     <a href={`/posts/${post.id}`} class="cursor-pointer">
-      <div class="border-l-2 border-b-2 border-zinc-800 pl-4 py-2 text-sm">
+      <div class="border-b-2 border-zinc-800 pl-4 py-2 text-sm">
         <cite class="text-amber-600">{post.owner.name}</cite>
         <cite class="text-zinc-500 ml-2">@{post.owner.username}</cite>
         <p class="text-zinc-300">{post.content}</p>
