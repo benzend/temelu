@@ -3,7 +3,7 @@ import { createSignal, type Component } from 'solid-js';
 export const Landing: Component = () => {
 
   const handleChallengeComplete = () => {
-    document.location.href = '/auth'
+    document.location.href = '/home' // TODO: change to auth page
   }
   return (
     <div class="bg-zinc-900 text-white min-h-screen min-w-screen flex flex-col justify-center items-center">

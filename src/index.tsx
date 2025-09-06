@@ -4,6 +4,7 @@ import { render } from 'solid-js/web';
 
 import { Route, Router } from '@solidjs/router';
 import { Landing } from './Landing';
+import { Home } from './Home';
 
 const root = document.getElementById('root');
 
@@ -15,4 +16,5 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 
 render(() => <Router>
          <Route path="/" component={Landing} />
+         <Route path="/home" component={Home} />
        </Router>, root!);
