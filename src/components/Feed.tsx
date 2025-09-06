@@ -7,6 +7,7 @@ const POSTS = [
     createdAt: new Date(),
     owner: {
       name: "John Doe",
+      username: "johndoe",
       avatarUrl: "https://example.com/avatar.jpg",
     },
     replies: [
@@ -23,6 +24,7 @@ const POSTS = [
     createdAt: new Date(),
     owner: {
       name: "Ben Smith",
+      username: "bensmith",
       avatarUrl: "https://example.com/avatar.jpg",
     },
     replies: [
@@ -39,11 +41,20 @@ export const Feed: Component = () => {
   return (
     <div class="mx-auto">
       {POSTS.map(post => (
-        <div class="border-l-2 border-b-2 border-zinc-800 pl-4 py-2">
-          <cite class="text-amber-600">@{post.owner.name}</cite>
-          <p>{post.content}</p>
-        </div>
+        <FeedPost post={post} />
       ))}
     </div>
+  )
+}
+
+const FeedPost: Component<{ post: typeof POSTS[0] }> = ({ post }) => {
+  return (
+    <a href={`/posts/${post.id}`} class="cursor-pointer">
+      <div class="border-l-2 border-b-2 border-zinc-800 pl-4 py-2 text-sm">
+        <cite class="text-amber-600">{post.owner.name}</cite>
+        <cite class="text-zinc-500 ml-2">@{post.owner.username}</cite>
+        <p class="text-zinc-300">{post.content}</p>
+      </div>
+    </a>
   )
 }
