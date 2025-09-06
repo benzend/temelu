@@ -1,6 +1,6 @@
 import { createSignal, type Component } from 'solid-js';
 
-export const Home: Component = () => {
+export const Landing: Component = () => {
 
   const handleChallengeComplete = () => {
     document.location.href = '/auth'
