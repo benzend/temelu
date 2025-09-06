@@ -1,19 +1,24 @@
 import { createSignal, type Component } from 'solid-js';
 
 export const Home: Component = () => {
+
+  const handleChallengeComplete = () => {
+    document.location.href = '/auth'
+  }
   return (
     <div class="bg-zinc-900 text-white min-h-screen min-w-screen flex flex-col justify-center items-center">
-      <h1 class="text-8xl">Temelu</h1>
-      <div>Type <TypeChallenge challenge="okay" /> to get started</div>
+      <h1 class="text-8xl text-amber-600">Temelu</h1>
+      <div>Type <TypeChallenge challenge="okay" action={handleChallengeComplete} /> to get started</div>
     </div>
   );
 };
 
 interface ITypeChallengeProps {
   challenge: string;
+  action: () => void;
 }
 
-const TypeChallenge: Component = ({ challenge }: ITypeChallengeProps) => {
+const TypeChallenge: Component = ({ challenge, action }: ITypeChallengeProps) => {
   const targetSequence = challenge.split('');
   let [currentSequence, setCurrentSequence] = createSignal([]);
   let resetTimeout;
@@ -33,7 +38,8 @@ const TypeChallenge: Component = ({ challenge }: ITypeChallengeProps) => {
     if (isMatch) {
       console.debug("Sequence detected: Ctrl → 6 → A!");
       setCurrentSequence([]);
-      document.location.href = '/auth'
+      action();
+      return
     }
 
     resetTimeout = setTimeout(() => {
