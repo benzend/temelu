@@ -1,4 +1,4 @@
-import { createSignal, onCleanup, onMount } from "solid-js";
+import { createSignal, onCleanup, onMount, createEffect } from "solid-js";
 import { Component } from "solid-js/types/server/rendering.js"
 
 const POSTS = [
@@ -346,6 +346,28 @@ const POSTS = [
 
 export const Feed: Component = () => {
   const [currentPostId, setCurrentPostId] = createSignal(1);
+  let feedContainerRef: HTMLDivElement;
+
+  const scrollToPost = (postId: number) => {
+    const postElement = document.querySelector(`[data-post-id="${postId}"]`);
+    if (postElement && feedContainerRef) {
+      const containerRect = feedContainerRef.getBoundingClientRect();
+      const postRect = postElement.getBoundingClientRect();
+      
+      // Check if post is outside the visible area
+      if (postRect.bottom > containerRect.bottom || postRect.top < containerRect.top) {
+        postElement.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+      }
+    }
+  };
+
+  createEffect(() => {
+    scrollToPost(currentPostId());
+  });
+
   const setupHotkeys = (event: KeyboardEvent) => {
     const target = event.target as HTMLElement | null;
     // Ignore if typing in an input or textarea
@@ -364,10 +386,12 @@ export const Feed: Component = () => {
 
     switch (event.key) {
       case "j":
-        setCurrentPostId(currentPostId() + 1); // TODO: need to handle differently
+        const nextId = Math.min(currentPostId() + 1, POSTS.length);
+        setCurrentPostId(nextId);
         break;
       case "k":
-        setCurrentPostId(currentPostId() - 1);  // TODO: need to handle differently
+        const prevId = Math.max(currentPostId() - 1, 1);
+        setCurrentPostId(prevId);
         break;
       case "Escape":
         history.back();
@@ -404,7 +428,10 @@ export const Feed: Component = () => {
   }
 
   return (
-    <div class="mx-auto lg:border-x-2 lg:border-zinc-800">
+    <div 
+      ref={feedContainerRef}
+      class="mx-auto lg:border-x-2 lg:border-zinc-800 max-h-screen overflow-y-auto"
+    >
       {POSTS.map(post => (
         <FeedPost post={post} isSelected={isSelected} />
       ))}
@@ -416,6 +443,7 @@ const FeedPost: Component<{ post: typeof POSTS[0], isSelected: (id: number) => b
   return (
     <a href={`/posts/${post.id}`} class="cursor-pointer">
       <div
+        data-post-id={post.id}
         class="border-b-2 border-zinc-800 pl-4 py-2 text-sm"
         classList={{
           '!border !border-zinc-300': isSelected(post.id),
