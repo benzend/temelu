@@ -357,6 +357,11 @@ export const Feed: Component = () => {
       return;
     }
 
+    // Ignore if any modifier keys are pressed
+    if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) {
+      return;
+    }
+
     switch (event.key) {
       case "j":
         setCurrentPostId(currentPostId() + 1); // TODO: need to handle differently
@@ -364,10 +369,11 @@ export const Feed: Component = () => {
       case "k":
         setCurrentPostId(currentPostId() - 1);  // TODO: need to handle differently
         break;
-      case "h":
+      case "Escape":
         history.back();
         break;
-      case "l":
+      case " ":
+        event.preventDefault(); // Prevent page scroll
         window.location.href = `/posts/${currentPostId()}`;
         break;
       case "o":

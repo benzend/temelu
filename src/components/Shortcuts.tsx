@@ -5,8 +5,8 @@ export const Shortcuts: Component = () => {
     <ul>
       <li>j - Scroll down</li>
       <li>k - Scroll up</li>
-      <li>h - Go back</li>
-      <li>l - Open post</li>
+      <li>Esc - Go back</li>
+      <li>Space - Open post</li>
       <li>o - Open post in new tab</li>
       <li>r - Reply to post</li>
       <li>c - Compose new post</li>
