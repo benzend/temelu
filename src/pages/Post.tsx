@@ -1,3 +1,4 @@
+import { onCleanup, onMount } from "solid-js";
 import { Component } from "solid-js/types/server/rendering.js";
 
 const post = {
@@ -24,6 +25,52 @@ const post = {
 };
 
 export const Post: Component = () => {
+  const setupHotkeys = (event: KeyboardEvent) => {
+    const target = event.target as HTMLElement | null;
+    // Ignore if typing in an input or textarea
+    if (
+      target.tagName === "INPUT" ||
+      target.tagName === "TEXTAREA" ||
+      target.isContentEditable
+    ) {
+      return;
+    }
+
+    switch (event.key) {
+      case "j":
+        window.scrollBy({ top: 100, behavior: "smooth" });
+        break;
+      case "k":
+        window.scrollBy({ top: -100, behavior: "smooth" });
+        break;
+      case "h":
+        history.back();
+        break;
+      case "l":
+        alert("Open post"); // Replace with your logic
+        break;
+      case "o":
+        window.open("https://example.com/post", "_blank"); // Replace with dynamic post URL
+        break;
+      case "r":
+        alert("Reply to post"); // Replace with your logic
+        break;
+      case "c":
+        alert("Compose new post"); // Replace with your logic
+        break;
+      case "f":
+        alert("Search"); // Replace with your logic
+        break;
+    }
+  };
+
+  onMount(() => {
+    document.addEventListener("keydown", setupHotkeys);
+  });
+
+  onCleanup(() => {
+    document.removeEventListener("keydown", setupHotkeys);
+  });
   return (
     <div class="bg-zinc-900 text-white min-h-screen min-w-screen">
       <div class="max-w-7xl mx-auto">
@@ -54,5 +101,5 @@ export const Post: Component = () => {
         ))}
       </div>
     </div>
-   )
+  )
 }
